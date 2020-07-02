@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <title>Vue Basics</title>
+    <!-- development version, includes helpful console warnings
+         從https://vuejs.org/v2/guide/ ，vue documentation取得
+         development version，上線要用production ver才會輕巧且不會有console warnings
+     -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <style type="text/css">
+        .canvas{
+            width: 300px;
+            height: 300px;
+            margin-top: 20px;
+            background: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Vue listening</h1>
+    <div id="app">
+        <h2>{{ title }}</h2>
+        <p>My name is {{ name }}</p>
+        <p>I earn {{ wage }} NT$ per hour</p>
+        <!-- 為何keyup可以取得輸入內容，因為每次最新的輸入內容就是按下後放開
+             keypress按住不放、keydown按下那一剎那
+         -->
+
+        <!-- Key Event -->
+        <!-- 用js keyup事件才會同步變化產生 -->
+        <input type="text" @keyup="updateName"><br>
+        <!--  用keypress總會one left behind留下一個，只會有前面的輸入
+              好像著重的是在輸入這件事，真的進到區域裡面才作用
+              "他在等key event觸發，才去看當前輸入的內容，自然當前按下去up/down內容不會存在"
+         -->
+        <input type="text" @keypress="updateName"><br>
+
+        <!--  Mouse Click Event -->
+        <!--  下面這種寫法是比較不好的，因為他在write our JS inside the attribute  -->
+        <button v-on:click="wage++">Increase wage by NT$ 1</button>
+        <button v-on:click="wage--">Decrease wage by NT$ 1</button><br>
+        <!--  其實這個也差不多，也是inside attr，但是改由method呼叫比較簡明 -->
+        <button v-on:click="changeWage(50)" >Change wage by NT$ +50</button>
+
+        <!-- @ at sign小老鼠符號是v-on:縮寫 -->
+        <button @click="changeWage(-50)" >Change wage by NT$ -50</button><br>
+        <!--  其他事件，這邊採用double click才會觸發，上面的是single click event -->
+        <button @dblclick="changeWage(1000)" >DB:Change wage by NT$ +1000</button><br>
+
+        <!--  methods裡面屬性都是函數
+              因此像是showLogEvent也是函數，這種作法就是沒有指定參數
+              事件處理函數會預設收到一個 Event Object
+        -->
+        <button @click="showLogEvent">Log Event Info</button>
+
+        <!--  滑鼠游標移動事件，針對offsetx,y去做反映 -->
+        <div class="canvas" @mousemove="logCoords">{{ coords.x }}, {{ coords.y }}</div>
+    </div>
+
+    <script src="app.js" type="text/javascript"></script>
+</body>
+</html>
