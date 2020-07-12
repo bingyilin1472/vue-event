@@ -30,12 +30,16 @@
 
         <!-- Key Event -->
         <!-- 用js keyup事件才會同步變化產生 -->
-        <input type="text" @keyup="updateName"><br>
+        <!-- 沒帶參數parameter情況時候會自動，將event物件引入進去 -->
+        <input type="text" @keyup="updateName()"><br>
         <!--  用keypress總會one left behind留下一個，只會有前面的輸入
               好像著重的是在輸入這件事，真的進到區域裡面才作用
               "他在等key event觸發，才去看當前輸入的內容，自然當前按下去up/down內容不會存在"
          -->
-        <input type="text" @keypress="updateName"><br>
+        <!-- 有帶參數parameter情況時候就不會自動，將event物件引入進去
+             就得將event obj以$event方式將當前事件物件引入進去，才能對事件所在target element上去獲取資訊與操控
+         -->
+        <input type="text" @keypress="updateName($event, 100)"><br>
 
         <!--  Mouse Click Event -->
         <!--  下面這種寫法是比較不好的，因為他在write our JS inside the attribute  -->

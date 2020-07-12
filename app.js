@@ -33,10 +33,11 @@ new Vue({
             this.coords.y = event.offsetY
         },
 
-        updateName(event){
+        updateName(event, number){
             // event.target可以獲得觸發事件的元素(他綁定的是keyup)
             // 這邊是對應到文字輸入框，因此只要他打字就會觸發到他，取得他後再取得value
             // console.log(event.target.value)
+            console.log(number)
             this.name = event.target.value
         }
     }
